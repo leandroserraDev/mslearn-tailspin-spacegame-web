@@ -71,7 +71,7 @@ steps:
   inputs:
     command: custom
     custom: tool
-    arguments: 'run reportgenerator -reports:$(Build.SourcesDirectory/**/coverage.opencover.xml -targetdir:coverage_report'
+    arguments: 'reportgenerator -reports:$(Build.SourcesDirectory/**/coverage.opencover.xml -targetdir:coverage_report'
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage report'
   inputs:
