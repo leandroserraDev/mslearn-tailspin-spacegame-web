@@ -57,6 +57,10 @@ steps:
     arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/Coverage/'
     publishTestResults: true
     projects: '**/*.Tests.csproj'
+- script: |
+    cd TesteProject
+    dotnet tool install -g dotnet-reportgenerator-globaltool
+    dotnet restore
 - task: DotNetCoreCLI@2
   displayName: 'Create code coverage report'
   inputs:
