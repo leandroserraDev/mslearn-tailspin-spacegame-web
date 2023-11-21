@@ -58,7 +58,7 @@ steps:
     publishTestResults: true
     projects: '**/*.Tests.csproj'
 - script: |
-    cd TesteProject
+    cd /TestProject
     dotnet tool install -g dotnet-reportgenerator-globaltool
     dotnet restore
 - task: DotNetCoreCLI@2
