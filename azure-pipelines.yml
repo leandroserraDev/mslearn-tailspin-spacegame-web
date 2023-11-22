@@ -58,7 +58,7 @@ steps:
     command: 'test'
     arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
     publishTestResults: true
-    projects: 'TestProject' # update with your test project directory
+    projects: 'TestProject.csproj' # update with your test project directory
   
   
 # Publish code coverage results v1
