@@ -56,19 +56,18 @@ steps:
   displayName: 'dotnet test'
   inputs:
     command: 'test'
-    arguments: '--collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
     publishTestResults: true
+    projects: 'TestProject' # update with your test project directory
+  
   
 # Publish code coverage results v1
 # Publish Cobertura or JaCoCo code coverage results from a build.
 - task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage report'
   inputs:
-    codeCoverageTool: 'JaCoCo' # 'Cobertura' | 'JaCoCo'. Required. Code coverage tool. Default: JaCoCo.
-    summaryFileLocation: # string. Required. Summary file. 
-    #pathToSources: # string. Path to Source files. 
-    #reportDirectory: # string. Report directory. 
-    #additionalCodeCoverageFiles: # string. Additional files. 
-    #failIfCoverageEmpty: false # boolean. Fail w
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
