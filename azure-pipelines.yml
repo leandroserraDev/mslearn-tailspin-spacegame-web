@@ -59,11 +59,16 @@ steps:
     arguments: '--collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
     publishTestResults: true
   
+# Publish code coverage results v1
+# Publish Cobertura or JaCoCo code coverage results from a build.
 - task: PublishCodeCoverageResults@1
-  displayName: 'Publish code coverage report'
   inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+    codeCoverageTool: 'JaCoCo' # 'Cobertura' | 'JaCoCo'. Required. Code coverage tool. Default: JaCoCo.
+    summaryFileLocation: # string. Required. Summary file. 
+    #pathToSources: # string. Path to Source files. 
+    #reportDirectory: # string. Report directory. 
+    #additionalCodeCoverageFiles: # string. Additional files. 
+    #failIfCoverageEmpty: false # boolean. Fail w
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - $(buildConfiguration)'
   inputs:
