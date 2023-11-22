@@ -56,7 +56,7 @@ steps:
   displayName: 'dotnet test'
   inputs:
     command: 'test'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
+    arguments: '--collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura'
     publishTestResults: true
   
 - task: PublishCodeCoverageResults@1
