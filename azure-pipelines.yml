@@ -2,7 +2,7 @@ trigger:
 - '*'
 
 pool: 
-   vmImage: ubunto-latest
+   vmImage: ubuntu-latest
 
 variables: 
    buildConfiguration: 'Realese'
