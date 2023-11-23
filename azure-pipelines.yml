@@ -1,3 +1,42 @@
-pool: MyAgentPool
+trigger: '*'
+
+pool: 
+   vmImage: ubunto-latest
+
+variables: 
+   buildConfiguration: 'Realese'
+
 steps:
-- bash: echo hello world
+   - task: UseDotNet@2
+     displayName: 'Use .NET SDK 6.x'
+     inputs:
+       packageType: sdk
+       version: '6.x'
+
+   - task: NNpm@1
+     displayName: 'Run npm install'
+     inputs:
+       verbose: false
+
+   - script: './node_modules/.bin/node-sass Tailspin.SpaceGame.Web/wwwroot --output Tailspin.SpaceGame.Web/wwwroot'
+      displayName: 'Compile Sass assets'
+
+   - task: gulp@1
+     displayName: 'Run gulp tasks'
+
+   - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
+     displayName: 'Write build info'
+     workingDirectory: Tailspin.SpaceGame.Web/wwwroot
+
+   - task: DotNetCoreCLI@2
+     displayName: 'Restore projet dependencies'
+     inputs:
+       command: 'restore'
+       projects: '**/*.csproj'
+  
+   - task: DotNetCoreCLI@2
+     displayName: 'Build the project - REALESE'
+     inputs:
+       command: 'build'
+       arguments: '--no-restore --configuration REALESE'
+       projects: '**/*.csproj'
