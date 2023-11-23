@@ -1,4 +1,5 @@
-trigger: '*'
+trigger: 
+- '*'
 
 pool: 
    vmImage: ubunto-latest
