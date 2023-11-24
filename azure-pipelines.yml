@@ -15,20 +15,15 @@ steps:
        version: '6.x'
 
   - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
-    displayName: 'Salvar arquivo com informações do build'
+    displayName: 'Salvar arquivo com informaÃ§Ãµes do build'
     workingDirectory: Tailspin.SpaceGame.Web/wwwroot
 
-  - task: DotNetCoreCLI@2
-    displayName: 'Restaurar Projetos e dependencias'
-    inputs:
-      command: 'restore'
-      projects: '**/*.csproj'
   
   - task: DotNetCoreCLI@2
     displayName: 'Build the project - REALESE'
     inputs:
       command: 'build'
-      arguments: '--no-restore --configuration RELEASE'
+      arguments: '--configuration RELEASE'
       projects: '**/*.csproj'
 
   - task: DotNetCoreCLI@2
