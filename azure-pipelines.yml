@@ -8,26 +8,25 @@ variables:
    buildConfiguration: 'Realese'
 
 steps:
-   - task: UseDotNet@2
-     displayName: 'Use .NET SDK 6.x'
-     inputs:
+  - task: UseDotNet@2
+    displayName: 'Use .NET SDK 6.x'
+    inputs:
        packageType: sdk
        version: '6.x'
 
+  - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
+    displayName: 'Write build info'
+    workingDirectory: Tailspin.SpaceGame.Web/wwwroot
 
-   - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
-     displayName: 'Write build info'
-     workingDirectory: Tailspin.SpaceGame.Web/wwwroot
-
-   - task: DotNetCoreCLI@2
-     displayName: 'Restore projet dependencies'
-     inputs:
-       command: 'restore'
-       projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore projet dependencies'
+    inputs:
+      command: 'restore'
+      projects: '**/*.csproj'
   
-   - task: DotNetCoreCLI@2
-     displayName: 'Build the project - REALESE'
-     inputs:
-       command: 'build'
-       arguments: '--no-restore --configuration REALESE'
-       projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: 'Build the project - REALESE'
+    inputs:
+      command: 'build'
+      arguments: '--no-restore --configuration REALESE'
+      projects: '**/*.csproj'
