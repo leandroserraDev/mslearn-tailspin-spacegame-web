@@ -1,25 +1,25 @@
 trigger: 
-- '*'
+  - '*'
 
 pool: 
-   vmImage: ubuntu-latest
+  vmImage: ubuntu-latest
 
 variables: 
-   buildConfiguration: 'Realese'
+  buildConfiguration: 'Realese'
 
 steps:
   - task: UseDotNet@2
-    displayName: 'Use .NET SDK 6.x'
+    displayName: Usar .NET SDK 6.x'
     inputs:
        packageType: sdk
        version: '6.x'
 
   - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
-    displayName: 'Write build info'
+    displayName: 'Salvar arquivo com informações do build'
     workingDirectory: Tailspin.SpaceGame.Web/wwwroot
 
   - task: DotNetCoreCLI@2
-    displayName: 'Restore projet dependencies'
+    displayName: 'Restaurar Projetos e dependencias'
     inputs:
       command: 'restore'
       projects: '**/*.csproj'
@@ -30,3 +30,7 @@ steps:
       command: 'build'
       arguments: '--no-restore --configuration REALESE'
       projects: '**/*.csproj'
+  
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publicar Artefato'
+    condition: succeeded()
